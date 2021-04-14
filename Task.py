@@ -1,3 +1,4 @@
+
 cook_book = {}
 solv_ihg_key = ['ingredient_name', 'quantity', 'measure']
 
@@ -50,7 +51,23 @@ with open('recipes.txt', encoding='utf-8') as c:
     cook_book[dish3] = ingrid_list3
 
 
-print(cook_book)
+# print(cook_book) #Вывод 1-й задачи
+
+
+def get_shop_list_by_dishes(dishes, person_count):
+    shop_dict = {}
+    for di, ingr in cook_book.items():
+        if dishes in di:
+            for dic_ing in ingr:
+                dic_ing['quantity'] = int(dic_ing['quantity']) * person_count
+                ads = {dic_ing['ingredient_name']: dic_ing}
+                del dic_ing['ingredient_name']
+                shop_dict.update(ads)
+    print(shop_dict)
+
+
+
+get_shop_list_by_dishes('Фахитос', 13) #Частичная реализация функции для одного рецепта
 
 
 
