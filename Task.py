@@ -65,6 +65,8 @@ def get_shop_list_by_dishes(dishes, person_count):
                 shop_dict.update(ads)
     print(shop_dict)
 
+    return
+
 
 
 get_shop_list_by_dishes('Фахитос', 13) #Частичная реализация функции для одного рецепта
