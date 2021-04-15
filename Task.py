@@ -54,23 +54,28 @@ with open('recipes.txt', encoding='utf-8') as c:
 # print(cook_book) #Вывод 1-й задачи
 
 
+
+
+
 def get_shop_list_by_dishes(dishes, person_count):
     shop_dict = {}
-    for di, ingr in cook_book.items():
-        if dishes in di:
-            for dic_ing in ingr:
-                dic_ing['quantity'] = int(dic_ing['quantity']) * person_count
-                ads = {dic_ing['ingredient_name']: dic_ing}
-                del dic_ing['ingredient_name']
-                shop_dict.update(ads)
-    print(shop_dict)
-
-    return
-
-
-
-get_shop_list_by_dishes('Фахитос', 13) #Частичная реализация функции для одного рецепта
-
-
+    for dish in dishes:
+        if dish in cook_book:
+            for ingridient in cook_book[dish]:
+                ingridient['quantity'] = int(ingridient['quantity']) * person_count
+                abc = {ingridient['ingredient_name']: ingridient}
+                del ingridient['ingredient_name']
+                for ke in abc:        # Воспользовался материалом из лекции, что бы применить обработку исключений,
+                   # но не ошибки (ключ в словаре перезаписывался бы с потерей значений и функция работала бы).
+                   # Можно было пробовать по другому через Counter.
+                    try:
+                        shop_dict[ke]['quantity'] += abc[ke]['quantity']
+                    except:
+                        shop_dict[ke] = abc[ke]
+    return print(shop_dict)
 
 
+
+
+#get_shop_list_by_dishes(['Фахитос', 'Омлет'], 1) # Вывод функции с повторяющимся ингридиентом
+#get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2) # Вывод функции по заданию из примера
